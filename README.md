@@ -10,21 +10,21 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/GitHub038/ProjetEnEquipe/">
+  <a href="https://github.com/Choukro/GeoDefibrillateurs">
     <img src="/public/GeoDefibrillateurs.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">GéoDéfibrillateurs</h3>
+<h3 align="center">GéoDéfibrillateurs_31</h3>
 
   <p align="center">
-    Trouver un défibrillateur en 1 clic avec GéoDéfibrillateurs !
+    Trouver un défibrillateur en 1 clic en Haute Garonne avec GéoDéfibrillateurs_31 !
     <br />
-    <a href="https://github.com/GitHub038/ProjetEnEquipe/"><strong>Voir le projet »</strong></a>
+    <a href="https://github.com/Choukro/GeoDefibrillateurs"><strong>Voir le projet »</strong></a>
     <br />
     <br />
-    <a href="https://geodefibrillateurs.netlify.app/" target="_blank">Voir Démo</a>
+    <a href="..." target="_blank">Voir Démo</a>
     ·
-    <a href="https://github.com/GitHub038/ProjetEnEquipe/issues">Signaler Bug</a>
+    <a href="https://github.com/Choukro/GeoDefibrillateurs/issues">Signaler Bug</a>
   </p>
 </div>
 
@@ -56,11 +56,13 @@
 
 ## À propos de ce projet
 
-[![Product Name Screen Shot][product-screenshot]](https://geodefibrillateurs.netlify.app/)
+[![Product Name Screen Shot][product-screenshot]](https://...)
 
-Trouver un défibrillateur automatisés externes (DAE) avec l'[API](https://api-geodae.sante.gouv.fr/api/doc) des défibrillateurs déclarés dans la base nationale [Géo'DAE](https://www.data.gouv.fr/fr/datasets/61556e1e9d6adb2df86eb0fc/) !
+Projet en équipe (3 développeurs) sur une durée de 4 semaines, décomposé en 4 sprints, 1 par semaine.
+**Objectif** : Trouver en 1 clic un défibrillateur automatisés externes (DAE) situés dans le département de la Haute Garonne (31).
+**Comment** : avec l'[API](https://api-geodae.sante.gouv.fr/api/doc) des défibrillateurs déclarés dans la base nationale [Géo'DAE](https://www.data.gouv.fr/fr/datasets/61556e1e9d6adb2df86eb0fc/) !
 
-GéoDéfibrillateurs rend accessible cette donnée qui peut sauver une vie. En effet :
+GéoDéfibrillateurs_31 rend donc accessible cette donnée qui peut sauver une vie. En effet :
 
 > _À peine 1 citoyen sur 10 survit à un arrêt cardiaque faute d'avoir bénéficié au bon moment de l'intervention d'une personne, le temps que les secours interviennent.Cette personne aurait pu leur sauver la vie en pratiquant les gestes de premier secours et en relançant le cœur par un choc électrique en utilisant un DAE._
 

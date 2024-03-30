@@ -65,12 +65,12 @@ const DAEList = React.memo(({ data }) => {
           >
             <CardHeader>
               <CardTitle className="md:text-2xl text-lg font-semibold	text-primary text-center">
-                ID : {entry.c_gid}
+                ID : {entry.gid}
               </CardTitle>
               <CardDescription className="md:text-lg text-sm text-center font-semibold">
                 <span className="flex flex-row justify-between">
                   <span className="flex flex-row gap-2 items-center">
-                    <ThumbsUp /> {entry.c_etat_fonct}{' '}
+                    <ThumbsUp /> {entry.etatFonct}{' '}
                   </span>
                   <span className="flex flex-row gap-2 items-center	">
                     {entry.distance !== undefined ? (
@@ -88,27 +88,24 @@ const DAEList = React.memo(({ data }) => {
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
                     <p>
-                      <span className="font-bold">Lieu :</span> {entry.c_nom}
+                      <span className="font-bold">Lieu :</span> {entry.comNom}
                     </p>
                     <p>
-                      <span className="font-bold">Rue :</span>{' '}
-                      {entry.c_adr_voie}
+                      <span className="font-bold">Rue :</span> {entry.adrVoie}
                     </p>
                     <p>
                       <span className="font-bold">Code postal :</span>{' '}
-                      {entry.c_com_cp}
+                      {entry.comCp}
                     </p>
                     <p>
-                      <span className="font-bold">Ville :</span>{' '}
-                      {entry.c_com_nom}
+                      <span className="font-bold">Ville :</span> {entry.comNom}
                     </p>
-                    {entry.c_disp_j.replace(/[{}"]/g, '') !==
-                      'non renseigné' && (
+                    {/* {entry.dispJ !== 'non renseigné' && (
                       <p className="truncate max-w-[14rem] xl:overflow-visible">
                         <span className="font-bold">Disponibilité :</span>{' '}
-                        {entry.c_disp_j.replace(/[{}"]/g, '')}
+                        {entry.dispJ}
                       </p>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </CardContent>
@@ -122,7 +119,7 @@ const DAEList = React.memo(({ data }) => {
 
 const initialQuery = getDocsCustom(
   ENDPOINT,
-  where('c_etat_fonct', '==', 'En fonctionnement'),
+  where('etatFonct', '==', 'En fonctionnement'),
 )
 
 const DaeRender = () => {
@@ -141,11 +138,11 @@ const DaeRender = () => {
         ? getDocsCustom(
             ENDPOINT,
             where(
-              isNumeric ? 'c_com_cp' : 'c_com_nom',
+              isNumeric ? 'comCp' : 'comNom',
               '==',
-              isNumeric ? parseInt(search) : search,
+              isNumeric ? search : search,
             ),
-            where('c_etat_fonct', '==', 'En fonctionnement'),
+            where('etatFonct', '==', 'En fonctionnement'),
           )
         : initialQuery
       setQuery(newQuery)

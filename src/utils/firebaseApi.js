@@ -20,8 +20,8 @@ const getGeoDocs = async (endpoint, center) => {
   const docs = []
   snapshot.docs.forEach((doc) => {
     const data = doc.data()
-    const lat = data.c_lat_coor1
-    const lon = data.c_long_coor1
+    const lat = data.latCoor1
+    const lon = data.longCoor1
 
     const distance = calculateDistance(
       center.latitude,

@@ -39,7 +39,7 @@ const AppSearchDae = () => {
 
   const initialQuery = getDocsCustom(
     ENDPOINT,
-    where('c_etat_fonct', '==', 'En fonctionnement'),
+    where('etatFonct', '==', 'En fonctionnement'),
   )
 
   useEffect(() => {
@@ -50,18 +50,12 @@ const AppSearchDae = () => {
   useEffect(() => {
     if (data && data.docs) {
       const newPositions = data.docs.map((dae1) => {
-        const {
-          c_lat_coor1,
-          c_long_coor1,
-          c_adr_num,
-          c_adr_voie,
-          c_com_cp,
-          c_disp_j,
-        } = dae1.data()
+        const { latCoor1, longCoor1, adrNum, adrVoie, comCp, dispJ } =
+          dae1.data()
         return [
           {
-            geocode: [c_lat_coor1, c_long_coor1],
-            popUp: `Hello, DAE situé au ${c_adr_num} ${c_adr_voie} ${c_com_cp} - Disponibilité : ${c_disp_j}`,
+            geocode: [latCoor1, longCoor1],
+            popUp: `DAE situé au ${adrNum} ${adrVoie} ${comCp} - Disponibilité : ${dispJ}`,
           },
         ]
       })
@@ -81,10 +75,10 @@ const AppSearchDae = () => {
           <div className="flex flex-col h-screen z-0 mt-20 m-2  overscroll-none  relative">
             <div className="block h-full w-full rounded-2xl absolute">
               <MapContainer
-                center={{ lat: 46.7111, lng: 1.7191 }}
-                zoom={6.5}
+                center={{ lat: 43.4, lng: 1.433333 }}
+                zoom={10}
                 scrollWheelZoom={true}
-                style={{ height: '100%' }}
+                style={{ height: '90%' }}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

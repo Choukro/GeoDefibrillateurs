@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { where } from 'firebase/firestore/lite'
 import { Loader2 } from 'lucide-react'
-import { useFetchData } from '../hooks/useFetchData'
-import { getDocsCustom } from '../utils/firebaseApi'
+import { useFirestoreData } from '@/hooks/useFirestoreData.js'
 import {
   Card,
   CardContent,
@@ -21,7 +20,7 @@ import { LocateFixed } from 'lucide-react'
 import { MapPinned } from 'lucide-react'
 import { ENDPOINT } from '@/utils/constants.js'
 
-//Mini component to display loader
+//Component to display loader
 const Loader = () => {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-secondary">
@@ -30,7 +29,7 @@ const Loader = () => {
   )
 }
 
-//Mini component to display error
+//Component to display error
 const ErrorMessage = ({ message }) => {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-secondary">
@@ -39,7 +38,7 @@ const ErrorMessage = ({ message }) => {
   )
 }
 
-//Mini component to display DAE_List
+//Component to display DAE_List
 const DAEList = React.memo(({ data }) => {
   if (data?.length === 0) {
     return (
@@ -100,12 +99,12 @@ const DAEList = React.memo(({ data }) => {
                     <p>
                       <span className="font-bold">Ville :</span> {entry.comNom}
                     </p>
-                    {/* {entry.dispJ !== 'non renseigné' && (
+                    {entry.dispJ !== 'non renseigné' && (
                       <p className="truncate max-w-[14rem] xl:overflow-visible">
                         <span className="font-bold">Disponibilité :</span>{' '}
-                        {entry.dispJ}
+                        {entry.dispJ.join(', ')}
                       </p>
-                    )} */}
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -117,53 +116,40 @@ const DAEList = React.memo(({ data }) => {
   )
 })
 
-const initialQuery = getDocsCustom(
-  ENDPOINT,
-  where('etatFonct', '==', 'En fonctionnement'),
-)
-
 const DaeRender = () => {
-  const { data, status, error, execute } = useFetchData()
+  const initialCondition = where('etatFonct', '==', 'En fonctionnement')
   const [search, setSearch] = useState('')
-  const [query, setQuery] = useState(initialQuery)
+  const [condition, setCondition] = useState(initialCondition)
   const [dae, setDae] = useState()
-  useEffect(() => {
-    execute(query)
-  }, [execute, query])
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       const isNumeric = !isNaN(search)
-      const newQuery = search
-        ? getDocsCustom(
-            ENDPOINT,
-            where(
-              isNumeric ? 'comCp' : 'comNom',
-              '==',
-              isNumeric ? search : search,
-            ),
-            where('etatFonct', '==', 'En fonctionnement'),
+      const newCondition = search
+        ? where(
+            isNumeric ? 'comCp' : 'comNom',
+            '==',
+            isNumeric ? search : search,
           )
-        : initialQuery
-      setQuery(newQuery)
+        : initialCondition
+      setCondition(newCondition)
     }
   }
-
+  const { data, isLoading, isError } = useFirestoreData(ENDPOINT, condition)
   const DaeListResult = () => {
-    switch (status) {
-      case 'failure':
-        return <ErrorMessage message={error} />
-      case 'loading':
-        return <Loader />
-      case 'done':
-        return (
-          <div className="h-full w-full mx-auto flex justify-center items-center flex-col pb-16 pt-6 gap-6 px-4 sm:px-8">
-            <DAEList data={dae} />
-          </div>
-        )
-      default:
-        return <>{status}</>
+    if (isLoading) {
+      return <Loader />
     }
+
+    if (isError) {
+      return <ErrorMessage message={isError.message} />
+    }
+
+    return (
+      <div className="h-full w-full mx-auto flex justify-center items-center flex-col pb-16 pt-6 gap-6 px-4 sm:px-8">
+        <DAEList data={dae} />
+      </div>
+    )
   }
 
   useEffect(() => {

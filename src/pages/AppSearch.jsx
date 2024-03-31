@@ -38,7 +38,6 @@ const AppSearchDae = () => {
   const { data, isLoading, isError } = useFirestoreData(ENDPOINT, condition)
 
   useEffect(() => {
-    console.log('Data', data)
     if (data) {
       const newPositions = data.docs.map((dae1) => {
         const { latCoor1, longCoor1, adrNum, adrVoie, comCp, dispJ } =

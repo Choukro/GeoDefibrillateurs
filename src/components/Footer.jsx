@@ -31,7 +31,7 @@ function Footer() {
               alt="Logo GeoDefibrillateurs"
             />
             <span className="self-center cursor-pointer text-xl lg:text-2xl drop-shadow px-1 font-extrabold italic text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary">
-              GeoDéfibrillateurs
+              GeoDéfibrillateurs 31
             </span>
           </Link>
           <ul className="flex flex-wrap flex-col lg:flex-row items-center mb-6 lg:mb-0 text-sm font-medium text-gray-500  dark:text-gray-400">

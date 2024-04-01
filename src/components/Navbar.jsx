@@ -83,15 +83,15 @@ function Navbar() {
     },
     {
       id: 3,
-      name: MENU_2,
-      href: '/guide',
-      current: currentUrl === '/guide' ? true : false,
-    },
-    {
-      id: 4,
       name: user ? MENU_6 : false,
       href: '/listeDAE',
       current: currentUrl === '/listeDAE' ? true : false,
+    },
+    {
+      id: 4,
+      name: MENU_2,
+      href: '/guide',
+      current: currentUrl === '/guide' ? true : false,
     },
     {
       id: 5,
@@ -125,7 +125,7 @@ function Navbar() {
                     alt="Logo GeoDefibrillateurs"
                   />
                   <div className="cursor-pointer whitespace-nowrap drop-shadow px-1 font-extrabold italic text-lg text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary">
-                    GeoDéfibrillateurs
+                    GeoDéfibrillateurs 31
                   </div>
                 </Link>
               </div>

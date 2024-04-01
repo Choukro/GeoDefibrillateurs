@@ -8,8 +8,10 @@ function HomePageHeader() {
     <>
       <header className="bg-header__opacity relative h-screen">
         <div className="h-screen w-full mx-auto flex flex-col justify-center items-center my-auto">
-          <div className="text-white text-shadow-lg shadow-primary text-4xl font-bold px-10 text-center lg:text-6xl dark:text-shadow-none">
+          <div className="text-white text-shadow-lg shadow-primary text-3xl font-bold px-10 text-center lg:text-6xl dark:text-shadow-none">
             Où est situé le DAE le plus proche&nbsp;?
+            <br />
+            <span className="text-xl lg:text-3xl">- Haute-Garonne (31) -</span>
           </div>
           <div className="text-center pt-24">
             <Button

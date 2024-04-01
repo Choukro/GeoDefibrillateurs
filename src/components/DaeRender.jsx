@@ -12,11 +12,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { getLocation } from '@/utils/helpers.js'
-import { getGeoDocs } from '@/utils/firebaseApi'
-import { Button } from './ui/button.jsx'
 import { ThumbsUp } from 'lucide-react'
-import { LocateFixed } from 'lucide-react'
 import { MapPinned } from 'lucide-react'
 import { ENDPOINT } from '@/utils/constants.js'
 
@@ -135,9 +131,9 @@ const DaeRender = () => {
       setCondition(newCondition)
     }
   }
-  const { data, isLoading, isError } = useFirestoreData(ENDPOINT, condition)
+  const { oldData, isLoading, isError } = useFirestoreData(ENDPOINT, condition)
   const DaeListResult = () => {
-    if (isLoading) {
+    if (isLoading && !oldData) {
       return <Loader />
     }
 
@@ -146,52 +142,25 @@ const DaeRender = () => {
     }
 
     return (
-      <div className="h-full w-full mx-auto flex justify-center items-center flex-col pb-16 pt-6 gap-6 px-4 sm:px-8">
-        <DAEList data={dae} />
-      </div>
+      oldData && (
+        <div className="h-full w-full mx-auto flex justify-center items-center flex-col pb-16 pt-6 gap-6 px-4 sm:px-8">
+          <DAEList data={dae} />
+        </div>
+      )
     )
   }
 
   useEffect(() => {
+    console.log('oldData :', oldData)
     setDae(
-      data
-        ? data.docs.map((doc) => ({
+      oldData
+        ? oldData.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
         : [],
     )
-  }, [data])
-
-  const handleClick = () => {
-    getLocation()
-      .then((coords) => {
-        getGeoDocs(ENDPOINT, coords)
-          .then((data) => {
-            setDae(
-              data
-                ? data.map((item) => ({
-                    id: item.doc.id,
-                    distance: Math.round(item.distance),
-                    ...item.doc.data(),
-                  }))
-                : [],
-            )
-          })
-          .catch((error) => {
-            console.error(
-              'Erreur lors de la récupération des documents : ',
-              error,
-            )
-          })
-      })
-      .catch((error) => {
-        console.error(
-          'Une erreur est survenue lors de la récupération de la localisation :',
-          error,
-        )
-      })
-  }
+  }, [oldData])
 
   return (
     <>
@@ -224,9 +193,6 @@ const DaeRender = () => {
                 onKeyDown={handleKeyPress}
               />
             </div>
-            <Button onClick={handleClick} size="icon">
-              <LocateFixed className="h-4 w-4" />
-            </Button>
           </div>
         </div>
         {DaeListResult()}

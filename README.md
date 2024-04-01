@@ -14,15 +14,15 @@
     <img src="/public/GeoDefibrillateurs.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">GéoDéfibrillateurs_31</h3>
+<h3 align="center">GéoDéfibrillateurs 31</h3>
 
   <p align="center">
-    Trouver un défibrillateur en 1 clic en Haute Garonne avec GéoDéfibrillateurs_31 !
+    Trouver le défibrillateur en Haute-Garonne le plus proche de vous en 1 clic !
     <br />
     <a href="https://github.com/Choukro/GeoDefibrillateurs"><strong>Voir le projet »</strong></a>
     <br />
     <br />
-    <a href="..." target="_blank">Voir Démo</a>
+    <a href="https://geodefibrillateurs31.vercel.app/" target="_blank">Voir Démo</a>
     ·
     <a href="https://github.com/Choukro/GeoDefibrillateurs/issues">Signaler Bug</a>
   </p>
@@ -58,11 +58,11 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://...)
 
-Projet en équipe (3 développeurs) sur une durée de 4 semaines, décomposé en 4 sprints, 1 par semaine.
-**Objectif** : Trouver en 1 clic un défibrillateur automatisés externes (DAE) situés dans le département de la Haute Garonne (31).
-**Comment** : avec l'[API](https://api-geodae.sante.gouv.fr/api/doc) des défibrillateurs déclarés dans la base nationale [Géo'DAE](https://www.data.gouv.fr/fr/datasets/61556e1e9d6adb2df86eb0fc/) !
+**Source** : Fork d'un [projet en équipe](https://github.com/GitHub038/ProjetEnEquipe/)
+**Objectif** : Trouver en 1 clic un défibrillateur automatisés externes (DAE) situés dans le département de la Haute Garonne - FR31.
+**Comment** : Avec l'[API](https://api-geodae.sante.gouv.fr/api/doc) des défibrillateurs déclarés dans la base nationale [Géo'DAE](https://www.data.gouv.fr/fr/datasets/61556e1e9d6adb2df86eb0fc/) !
 
-GéoDéfibrillateurs_31 rend donc accessible cette donnée qui peut sauver une vie. En effet :
+GéoDéfibrillateurs 31 rend donc accessible cette donnée qui peut sauver une vie. En effet :
 
 > _À peine 1 citoyen sur 10 survit à un arrêt cardiaque faute d'avoir bénéficié au bon moment de l'intervention d'une personne, le temps que les secours interviennent.Cette personne aurait pu leur sauver la vie en pratiquant les gestes de premier secours et en relançant le cœur par un choc électrique en utilisant un DAE._
 
@@ -73,7 +73,7 @@ GéoDéfibrillateurs_31 rend donc accessible cette donnée qui peut sauver une v
 - [![Vite][Vite.js]][Vite-url]
 - [![React][React.js]][React-url]
 - [![Firebase][Firebase]][Firebase-url]
-- [![Netlify][Netlify]][Netflify-url]
+- [![Vercel][Vercel.js]][Vercel-url]
 
 <p align="right">(<a href="#readme-top">⬆️</a>)</p>
 
@@ -101,7 +101,7 @@ npm --version
 
 1. Cloner le repo
    ```sh
-   git clone https://github.com/GitHub038/ProjetEnEquipe/.git
+   git clone https://github.com/Choukro/GeoDefibrillateurs.git
    ```
 2. Installer les paquets NPM
    ```sh
@@ -142,13 +142,10 @@ Ce que nous avons utilisé :
 ## Roadmap
 
 - [x] Écrire la documentation
-- [ ] _Tests_ :
-  - [ ] Finir les tests d'intégration
-  - [ ] Établir les test e2e avec `cypress`
-- [ ] _Refactors_ :
-  - [ ] Réorganiser et restructurer le code afin de favoriser sa lisibilité et sa clarté, mais aussi pour faciliter les tests
+- [x] _Tests_ :
+  - [x] Finir les tests d'intégration
 - [ ] _Authentification_ : Ajout de la fonctionnalité "Mot de passe oublié"
-- [ ] _Firebase_ : Intégrer l'ensemble des données disponibles
+- [ ] _Firebase_ : Intégrer l'ensemble des données pour permettre la géolocalisation du DAE le plus proche partout en France !
 
 <p align="right">(<a href="#readme-top">⬆️</a>)</p>
 
@@ -160,7 +157,7 @@ Ce que nous avons utilisé :
 - Bamba Thiam - [GitHub](https://github.com/BambaThiam)
 - Pierre-Henri Merrer - [Portfolio](https://ph-merrer.fr/)
 
-Lien du projet : [https://geodefibrillateurs.netlify.app/](https://geodefibrillateurs.netlify.app/)
+Lien du projet : [https://geodefibrillateurs31.vercel.app/](https://geodefibrillateurs31.vercel.app/)
 
 <p align="right">(<a href="#readme-top">⬆️</a>)</p>
 
@@ -189,8 +186,8 @@ Lien du projet : [https://geodefibrillateurs.netlify.app/](https://geodefibrilla
 [Vite-url]: https://vitejs.dev/guide/
 [Firebase]: https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white
 [Firebase-url]: https://firebase.google.com/docs?hl=fr
-[Netlify]: https://img.shields.io/badge/netlify-%ff9900.svg?style=for-the-badge&logo=netlify&logoColor=white
-[Netflify-url]: https://docs.netlify.com/
+[Vercel.js]: https://img.shields.io/badge/Vercel-yellow?style=for-the-badge&logo=Vercel&logoColor=white
+[Vercel-url]: https://vercel.com/products/dx-platform
 [git]: https://git-scm.com/
 [node]: https://nodejs.org
 [npm]: https://www.npmjs.com/

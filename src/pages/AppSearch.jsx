@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import LocationMarker from '@/components/appDAE/LocationMarker'
-import { ENDPOINT } from '@/utils/constants'
+import { ENDPOINT, hauteGaronne } from '@/utils/constants'
 import { Icon } from 'leaflet'
 import { Loader2 } from 'lucide-react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
@@ -8,6 +8,12 @@ import MarkerClusterGroup from 'react-leaflet-cluster'
 import 'leaflet/dist/leaflet.css'
 import { where } from 'firebase/firestore/lite'
 import { useFirestoreData } from '@/hooks/useFirestoreData.js'
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
+import { useNavigate } from 'react-router-dom'
+import { Polyline } from 'react-leaflet'
+import { Context } from '@/context/AuthContext'
+import { useContext } from 'react'
 
 const Loader = () => {
   return (
@@ -32,26 +38,93 @@ const customsIcon = new Icon({
 })
 
 const AppSearchDae = () => {
+  const { user } = useContext(Context)
+  let label, description
+  if (!user) {
+    label = 'Créer un compte'
+    description =
+      'Créer un compte pour voir la liste complète des DAE disponibles en Haute-Garonne.'
+  } else {
+    label = 'Liste DAE | FR-31'
+    description =
+      'Faites une recherche dans la liste des DAE disponibles en Haute-Garonne.'
+  }
+  const blackOptions = { color: 'black' }
+  const navigate = useNavigate()
   const [positions, setPositions] = useState([])
   const condition = where('etatFonct', '==', 'En fonctionnement')
 
   const { data, isLoading, isError } = useFirestoreData(ENDPOINT, condition)
 
   useEffect(() => {
-    if (data) {
-      const newPositions = data.docs.map((dae1) => {
-        const { latCoor1, longCoor1, adrNum, adrVoie, comCp, dispJ } =
-          dae1.data()
+    if (!isLoading && data) {
+      const newPositions = data.map((dae) => {
+        const {
+          latCoor1,
+          longCoor1,
+          adrNum,
+          adrVoie,
+          comCp,
+          comNom,
+          dispJ,
+          distance,
+        } = dae
+        console.log('dae :', dae)
+        if (data.length === 0) {
+          console.log('Aucun DAE trouvé !')
+        }
         return [
           {
             geocode: [latCoor1, longCoor1],
-            popUp: `DAE situé au ${adrNum} ${adrVoie} ${comCp} - Disponibilité : ${dispJ}`,
+            popUp: `DAE situé au ${adrNum} ${adrVoie} ${comCp} ${comNom} | Disponibilité : ${dispJ} | Distance : ${Math.round(
+              distance * 1000,
+            )} m`,
           },
         ]
       })
       setPositions(newPositions)
     }
-  }, [data])
+  }, [data, isLoading])
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      toast('Pas de DAE à proximité de votre position (FR-31) ?', {
+        description: description,
+        closeButton: true,
+        duration: Infinity,
+        classNames: {
+          actionButton: '!bg-primary hover:!bg-primary/80',
+          closeButton: 'hover:!bg-primary/30',
+        },
+        action: {
+          label: label,
+          onClick: () => navigate('/listeDAE'),
+        },
+      })
+    }, 3000)
+    return () => clearTimeout(timerId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (!isLoading && data?.length === 0) {
+      toast("Vous n'êtes pas en Haute-Garonne (FR-31) ?", {
+        description:
+          'Vérifier la disponibilité des DAE dans votre département en cliquant sur le bouton',
+        closeButton: true,
+        duration: Infinity,
+        classNames: {
+          actionButton: '!bg-primary hover:!bg-primary/80',
+          closeButton: 'hover:!bg-primary/30',
+        },
+        action: {
+          label: 'Cliquez ici',
+          onClick: () =>
+            window.open('https://www.defibrillateurs.info/', '_blank'),
+        },
+      })
+    }
+  }, [data, isLoading])
 
   if (isLoading) {
     return <Loader />
@@ -67,7 +140,7 @@ const AppSearchDae = () => {
       <div className="block h-full w-full rounded-2xl absolute">
         <MapContainer
           center={{ lat: 43.4, lng: 1.433333 }}
-          zoom={10}
+          zoom={9}
           scrollWheelZoom={true}
           style={{ height: '90%' }}
         >
@@ -75,6 +148,7 @@ const AppSearchDae = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <Polyline pathOptions={blackOptions} positions={hauteGaronne} />
           <LocationMarker />
 
           <MarkerClusterGroup>
@@ -84,7 +158,7 @@ const AppSearchDae = () => {
                 icon={customsIcon}
                 key={index}
               >
-                <Popup className="border-2 rounded-2xl border-teal-500 p-4 bg-gradient-to-r from-green-600 to-pink-500">
+                <Popup className="border-1 rounded-2xl p-2">
                   {marker[0].popUp}
                 </Popup>
               </Marker>
@@ -92,6 +166,7 @@ const AppSearchDae = () => {
           </MarkerClusterGroup>
         </MapContainer>
       </div>
+      <Toaster />
     </div>
   )
 }

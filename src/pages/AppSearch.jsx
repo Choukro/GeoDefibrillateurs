@@ -68,10 +68,6 @@ const AppSearchDae = () => {
           dispJ,
           distance,
         } = dae
-        console.log('dae :', dae)
-        if (data.length === 0) {
-          console.log('Aucun DAE trouvé !')
-        }
         return [
           {
             geocode: [latCoor1, longCoor1],

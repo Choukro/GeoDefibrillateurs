@@ -151,7 +151,6 @@ const DaeRender = () => {
   }
 
   useEffect(() => {
-    console.log('oldData :', oldData)
     setDae(
       oldData
         ? oldData.docs.map((doc) => ({

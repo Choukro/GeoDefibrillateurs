@@ -43,11 +43,10 @@ const AppSearchDae = () => {
   if (!user) {
     label = 'Créer un compte'
     description =
-      'Créer un compte pour voir la liste complète des DAE disponibles en Haute-Garonne.'
+      'Créer un compte pour voir la liste des DAE disponibles en Haute-Garonne.'
   } else {
-    label = 'Liste DAE | FR-31'
-    description =
-      'Faites une recherche dans la liste des DAE disponibles en Haute-Garonne.'
+    label = 'Voir liste DAE | FR-31'
+    description = 'Faites une recherche dans la liste des DAE disponibles.'
   }
   const blackOptions = { color: 'black' }
   const navigate = useNavigate()
@@ -69,10 +68,6 @@ const AppSearchDae = () => {
           dispJ,
           distance,
         } = dae
-        console.log('dae :', dae)
-        if (data.length === 0) {
-          console.log('Aucun DAE trouvé !')
-        }
         return [
           {
             geocode: [latCoor1, longCoor1],
@@ -88,19 +83,22 @@ const AppSearchDae = () => {
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      toast('Pas de DAE à proximité de votre position (FR-31) ?', {
-        description: description,
-        closeButton: true,
-        duration: Infinity,
-        classNames: {
-          actionButton: '!bg-primary hover:!bg-primary/80',
-          closeButton: 'hover:!bg-primary/30',
+      toast(
+        'Pas de DAE sur la carte ? (Zone de recherche autour de vous : 5 km)',
+        {
+          description: description,
+          closeButton: true,
+          duration: Infinity,
+          classNames: {
+            actionButton: '!bg-primary hover:!bg-primary/80',
+            closeButton: 'hover:!bg-primary/30',
+          },
+          action: {
+            label: label,
+            onClick: () => navigate('/listeDAE'),
+          },
         },
-        action: {
-          label: label,
-          onClick: () => navigate('/listeDAE'),
-        },
-      })
+      )
     }, 3000)
     return () => clearTimeout(timerId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,9 +106,9 @@ const AppSearchDae = () => {
 
   useEffect(() => {
     if (!isLoading && data?.length === 0) {
-      toast("Vous n'êtes pas en Haute-Garonne (FR-31) ?", {
+      toast('Êtes-vous situé(e) en Haute-Garonne (FR31) ?', {
         description:
-          'Vérifier la disponibilité des DAE dans votre département en cliquant sur le bouton',
+          'Si la réponse est NON, cliquez sur le bouton pour trouver le DAE le plus proche de vous dans votre département.',
         closeButton: true,
         duration: Infinity,
         classNames: {

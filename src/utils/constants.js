@@ -5,8 +5,8 @@ export const MENU_4 = 'Se déconnecter'
 export const MENU_5 = 'Mon profil'
 export const MENU_6 = 'Liste des DAE'
 
-export const DISTANCE = 1 // 1km
-export const ENDPOINT = '/geodae'
+export const DISTANCE = 5 // 5km
+export const ENDPOINT = '/240402_geodae'
 
 export const hauteGaronne = [
   [0.953697149857997, 43.78741210504823],

@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Marker, Popup, useMap } from 'react-leaflet'
+import { Marker, Popup, useMap, Circle, Tooltip } from 'react-leaflet'
 import { useEffect } from 'react'
 
 const LocationMarker = () => {
   const [position, setPosition] = useState(null)
   const map = useMap()
-
+  //const fillBlueOptions = { fillColor: 'blue' }
   useEffect(() => {
     const timerId = setTimeout(() => {
       map.locate().on('locationfound', (e) => {
@@ -32,6 +32,11 @@ const LocationMarker = () => {
       <Marker position={position}>
         <Popup>Votre position actuelle</Popup>
       </Marker>
+      <Circle center={position} radius={150}>
+        <Tooltip direction="bottom" offset={[0, 0]} opacity={1} permanent>
+          150 mètres
+        </Tooltip>
+      </Circle>
     </>
   )
 }
